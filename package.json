@@ -1,0 +1,24 @@
+{
+  "name": "email-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "inbox.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DGZN/Email-Parser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DGZN/Email-Parser/issues"
+  },
+  "homepage": "https://github.com/DGZN/Email-Parser#readme",
+  "devDependencies": {
+    "cheerio": "^0.19.0",
+    "imap": "^0.8.16",
+    "lazy": "^1.0.11"
+  }
+}
