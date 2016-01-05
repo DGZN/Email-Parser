@@ -1,0 +1,6 @@
+ Qty Item Price 
+ --- ---- ----- 
+ 1x Seasoned Curly Fries $2.29 
+ 1x Classic BLT Sandwich Extra Cheese: American (2 Slices) ($1.25Extra) $5.74 
+ 1x Giant Cookies (Vegan) Choice of Cookie: Lemon Poppyseed $3.99 
+ 1x Cheese Sticks Choice of Dipping Sauce: Ranch $6.99 
