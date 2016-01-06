@@ -4,7 +4,7 @@ var walker = require('./lib/walker'),
       jobs = new queue({concurrent: 1}),
      inbox = new walker({
       dir: __dirname + '/inbox'
-    , max: 2500
+    , max: 3000
     });
 
 inbox.on('file', function(file){
