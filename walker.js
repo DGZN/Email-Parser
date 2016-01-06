@@ -7,7 +7,7 @@ function Walker(dir) {
   this._dir   = dir || __dirname
   this._files = []
   this.walk()
-  this.max = 100
+  this.max = 2500
 }
 
 Walker.prototype.walk = function(){

@@ -2,6 +2,7 @@
           fs = require("fs"),
         lazy = require('lazy'),
      cheerio = require('cheerio'),
+     shortid = require('shortid'),
 EventEmitter = require('events').EventEmitter;
 
 
@@ -55,7 +56,7 @@ Parser.prototype.parse = function(file, cb){
             .replace(/^\s+/gi, '')
             .replace(')(',') (')
             .replace('Qty Item Price', ' Qty Item Price \r\n --- ---- -----')
-            fs.writeFile('./orders/order-1.txt', order, 'utf8');
+            fs.writeFile('./orders/order-' + shortid.generate() + '.txt', order, 'utf8');
             console.log(order);
           }
           break;
