@@ -1,10 +1,10 @@
 var walker = require('./walker'),
     queue  = require('./queue'),
-    parser = require('./parser'),
+    parser = require('./lib/parser'),
       jobs = new queue({concurrent: 1}),
      inbox = new walker({
       dir: __dirname + '/inbox'
-    , max: 10
+    , max: 1
     });
 
 inbox.on('file', function(file){
