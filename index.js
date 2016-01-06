@@ -1,8 +1,10 @@
 var walker = require('./walker'),
     queue  = require('./queue'),
-    parser = new queue({max: 1}),
-    orders = new walker(__dirname+'/inbox');
-
+    jobs = new queue({max: 1}),
+    orders = new walker({
+      dir: __dirname + '/inbox'
+    , max: 10
+    });
 orders.on('file', function(file){
-  parser.add(file)
+  jobs.add(file)
 })

@@ -3,10 +3,10 @@
 EventEmitter = require('events').EventEmitter;
 
 
-function Walker(dir) {
-  this._dir   = dir || __dirname
+function Walker(options) {
+  this._dir = options.dir || __dirname
+  this.max  = options.max || 10000
   this._files = []
-  this.max = 10000
   this.walk()
 }
 
