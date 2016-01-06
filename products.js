@@ -4,7 +4,7 @@ var walker = require('./lib/walker'),
       jobs = new queue({concurrent: 1}),
     orders = new walker({
       dir: __dirname + '/orders'
-    , max: 2500
+    , max: 4500
     });
 
 var _products = []
