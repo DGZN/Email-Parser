@@ -1,5 +1,5 @@
-var walker = require('./walker'),
-    queue  = require('./queue'),
+var walker = require('./lib/walker'),
+    queue  = require('./lib/queue'),
   products = require('./lib/productParser'),
       jobs = new queue({concurrent: 1}),
     orders = new walker({
