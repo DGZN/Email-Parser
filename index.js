@@ -1,15 +1,9 @@
 var lazy = require("lazy"),
-  walker = require('./walker');
-  parser = require('./parser');
+  walker = require('./walker'),
+  queue  = require('./queue')
+    jobs = new queue({max: 1});
+watcher  = new walker(__dirname+'/inbox'),
 
-
-var dir = new walker(__dirname+'/inbox')
-
-dir.on('file', function(file){
-  var parse = new parser(file, function(error, data){
-    if (error) {
-      return console.log("@error", error);
-    }
-    console.log(data);
-  })
+watcher.on('file', function(file){
+  jobs.add(file)
 })

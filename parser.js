@@ -6,14 +6,13 @@
 EventEmitter = require('events').EventEmitter;
 
 
-function Parser(file, cb) {
+function Parser(file) {
   if ( ! (this instanceof Parser) )
-    return new Parser(file, cb);
-  EventEmitter.call(this);
-  this.parse(file, cb)
+    return new Parser(file);
+  this.parse(file)
 }
 
-Parser.prototype.parse = function(file, cb){
+Parser.prototype.parse = function(file){
   var self = this;
   var parser = new lazy(fs.createReadStream(file))
     .forEach(function(body){
@@ -58,6 +57,7 @@ Parser.prototype.parse = function(file, cb){
             .replace('Qty Item Price', ' Qty Item Price \r\n --- ---- -----')
             fs.writeFile('./orders/order-' + shortid.generate() + '.txt', order, 'utf8');
             console.log(order);
+            self.emit('end')
           }
           break;
       }
@@ -74,4 +74,5 @@ Parser.prototype.eatTwentyFour = function(line){
   }
 }
 
+util.inherits(Parser, EventEmitter);
 module.exports = Parser;
