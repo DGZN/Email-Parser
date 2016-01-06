@@ -1,5 +1,4 @@
     var util = require('util'),
-      parser = require('./parser'),
 EventEmitter = require('events').EventEmitter;
 
 function Queue(options) {
@@ -10,20 +9,16 @@ function Queue(options) {
   this._maxAsync = options.concurrent || 1;
 }
 
-Queue.prototype.add = function(item) {
+Queue.prototype.add = function(item, cb) {
   this._queue.push(item)
-  this.processQueue()
+  return cb(item);
 }
 
 Queue.prototype.processQueue = function() {
   if (this._jobs >= this._maxAsync
     || !this._queue.length
     || !this._queue[0])
-    return;
-  var parse = new parser(this._queue[0])
-  parse.on('end', function(){
-    this.next()
-  }.bind(this))
+    return
 }
 
 Queue.prototype.next = function() {

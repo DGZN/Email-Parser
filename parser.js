@@ -56,8 +56,7 @@ Parser.prototype.parse = function(file){
             .replace(')(',') (')
             .replace('Qty Item Price', ' Qty Item Price \r\n --- ---- -----')
             fs.writeFile('./orders/order-' + shortid.generate() + '.txt', order, 'utf8');
-            console.log(order);
-            self.emit('end')
+            self.emit('end', order)
           }
           break;
       }
