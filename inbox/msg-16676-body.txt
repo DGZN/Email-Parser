@@ -1,515 +1,322 @@
-Delivered-To: keiichi.lindley@gmail.com
-Received: by 10.37.207.13 with SMTP id f13csp8153555ybg;
-        Sat, 2 Jan 2016 13:23:09 -0800 (PST)
-X-Received: by 10.98.9.199 with SMTP id 68mr82456229pfj.97.1451769789436;
-        Sat, 02 Jan 2016 13:23:09 -0800 (PST)
-Return-Path: <staff@rebellionpizza.com>
-Received: from mail-pa0-f44.google.com (mail-pa0-f44.google.com. [209.85.220.44])
-        by mx.google.com with ESMTPS id bd10si38827563pad.226.2016.01.02.13.23.09
-        for <keiichi.lindley@gmail.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sat, 02 Jan 2016 13:23:09 -0800 (PST)
-Received-SPF: neutral (google.com: 209.85.220.44 is neither permitted nor denied by best guess record for domain of staff@rebellionpizza.com) client-ip=209.85.220.44;
+Delivered-To: staff@rebellionpizza.com
+Received: by 10.66.227.233 with SMTP id sd9csp1311418pac;
+        Fri, 13 Nov 2015 17:49:03 -0800 (PST)
+X-Received: by 10.68.170.98 with SMTP id al2mr35842374pbc.121.1447465743651;
+        Fri, 13 Nov 2015 17:49:03 -0800 (PST)
+Return-Path: <bounces+1874385-d85a-staff=rebellionpizza.com@mail.eat24.com>
+Received: from o14.mail.eat24.com (o14.mail.eat24.com. [50.31.42.7])
+        by mx.google.com with ESMTPS id cm4si31132336pad.81.2015.11.13.17.49.03
+        for <staff@rebellionpizza.com>
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 13 Nov 2015 17:49:03 -0800 (PST)
+Received-SPF: pass (google.com: domain of bounces+1874385-d85a-staff=rebellionpizza.com@mail.eat24.com designates 50.31.42.7 as permitted sender) client-ip=50.31.42.7;
 Authentication-Results: mx.google.com;
-       spf=neutral (google.com: 209.85.220.44 is neither permitted nor denied by best guess record for domain of staff@rebellionpizza.com) smtp.mailfrom=staff@rebellionpizza.com;
-       dkim=pass header.i=@rebellionpizza-com.20150623.gappssmtp.com
-Received: by mail-pa0-f44.google.com with SMTP id do7so96pab.2
-        for <keiichi.lindley@gmail.com>; Sat, 02 Jan 2016 13:23:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rebellionpizza-com.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-         :content-type;
-        bh=UhFyxlF1yHEwAsJjFfWbiODl9C9KZB4lluronyA7SOg=;
-        b=dqbtHnX3mHqpQruwCYSm2Q4/Rn+g+OPJEYrNhStSoWO/faHQgfV8Rc+uKhknTUi6Xp
-         4FjsDhHa+LAm6vWaEhoaUlbXQOLOBgnjYkFoxjSuMbJ89iUZAqmK/3lVpnWPymOh4bay
-         kLLncIedK7A2l0JjmDBGwBm7vPrzhQ0SETZJdVLvSLg8xcjG4GmPr0vuO9vpWnjRYcKU
-         k1/fE8MozEjCtFd+BvzoqnaW0KMMHr/RtaNs1S7OVZ4+K67UdFwp1aIIQSYzgDcFQSIB
-         OcRWDackAeLv4CroftWaG/mboy2tS73NMNm3g0aPVwBE1iJDpYuWPgwXw1FEC3fS4Zp1
-         ASmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20130820;
-        h=x-gm-message-state:mime-version:in-reply-to:references:date
-         :message-id:subject:from:to:content-type;
-        bh=UhFyxlF1yHEwAsJjFfWbiODl9C9KZB4lluronyA7SOg=;
-        b=glmkxtGDkDxR9bDkPgc8NDzAW/1v97nsDul4KG1G84+FBtWCEtTFmoEVFZh8R/7IZ1
-         2XJ5Bb/V/8zJH+/ZwfuG/zppRnQK9oC6OW0L9MybEU8q63MSRwYOFzpwotVHsXR0b7jM
-         f2RzNGegf7VHqnGKX9zsNqTa7LomL9xSjcYQxUaB93TdErrtyhuaEiXtGdRAZR6nURXw
-         TOFJ0YuFn1a0+v4gO6xIC1wKATt1m8mVnHLwezTrxe+SRXeQaWUpCN8lUNe0hES2YZfX
-         629+ohjUEkT/kwMvRtM4eqMPzqM1DZSMi/d0Xa/2dMcR3KHIwdqtFg481a8OwOD+Ym30
-         AsDQ==
-X-Gm-Message-State: ALoCoQle0SkflgTmqaKlo/lzGrGrNJSFWR/1IhvVK3fqGPrFsScV0lBGOCd1EJdDbmSwY66rSz+WwHcqASZy2f4+KEvYaRmXOA==
-MIME-Version: 1.0
-X-Received: by 10.67.5.69 with SMTP id ck5mr115793281pad.125.1451769789209;
- Sat, 02 Jan 2016 13:23:09 -0800 (PST)
-Received: by 10.66.243.168 with HTTP; Sat, 2 Jan 2016 13:23:09 -0800 (PST)
-X-Originating-IP: [2601:282:802:df00:7dbc:a616:334:964e]
-In-Reply-To: <4a574aaf866ef8dea2827f8500eec531@eat24hours.com>
-References: <4a574aaf866ef8dea2827f8500eec531@eat24hours.com>
-Date: Sat, 2 Jan 2016 14:23:09 -0700
-Message-ID: <CANvp5QqpRS3P16LCvc+5qj=eBfSjdYjvgaBCTJU2V8+=P8sNrQ@mail.gmail.com>
-Subject: Fwd: Code: 5263# for Delivery Order #24149-11606 Address: 545 S Clay St
-From: Rebel Staffer <staff@rebellionpizza.com>
-To: keiichi.lindley@gmail.com
-Content-Type: multipart/alternative; boundary=047d7b16002194f3fa0528607ec6
-
---047d7b16002194f3fa0528607ec6
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
----------- Forwarded message ----------
-From: Eat24 <MaitreD@eat24.com>
-Date: Fri, Jan 1, 2016 at 6:46 PM
-Subject: Code: 5263# for Delivery Order #24149-11606 Address: 545 S Clay St
+       spf=pass (google.com: domain of bounces+1874385-d85a-staff=rebellionpizza.com@mail.eat24.com designates 50.31.42.7 as permitted sender) smtp.mailfrom=bounces+1874385-d85a-staff=rebellionpizza.com@mail.eat24.com;
+       dkim=pass header.i=@eat24.com
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=eat24.com; 
+	h=to:subject:from:mime-version:content-type:content-transfer-encoding; 
+	s=m1; bh=vz70B8tiVAOypg67Kv1OHUPOWlg=; b=TTo6eLy4BwBMyoG7hMGnL89
+	9XEFtcZbfEL/+rsgsarRg+hBSiQ1A/Mqrid7t/FnqSlEv+HpL+UiynbFP9echydm
+	/2vXU1sTuBUC4I94i7tDu2siWHb9RYlZ6TMnWFEgXaMB7Kr44j+nqDv9j7q078t1
+	JpoeHttIGVHwu2LyOC6A=
+Received: by filter-492.sjc1.sendgrid.net with SMTP id filter-492.2345.5646930D50
+        2015-11-14 01:49:01.954418415 +0000 UTC
+Received: from web7-uswest1a.prodt.twofour.io (unknown [10.43.18.4])
+	by ismtpd0010p1las1.sendgrid.net (SG) with ESMTP id QNvSVZfDQiG0zXh1jFaANg
+	for <staff@rebellionpizza.com>; Sat, 14 Nov 2015 01:49:02.228 +0000 (UTC)
+Received: from web7-uswest1a.prodt.twofour.io (localhost.localdomain [127.0.0.1])
+	by web7-uswest1a.prodt.twofour.io (8.14.4/8.14.4) with ESMTP id tAE1n1Ub002018
+	for <staff@rebellionpizza.com>; Sat, 14 Nov 2015 01:49:01 GMT
+Received: (from eat24hours@localhost)
+	by web7-uswest1a.prodt.twofour.io (8.14.4/8.14.4/Submit) id tAE1n1PJ002017;
+	Sat, 14 Nov 2015 01:49:01 GMT
 To: staff@rebellionpizza.com
+Subject: Code: 8613# for Delivery Order #W24149-11378 Address: 2831 S Acoma St
+X-PHP-Originating-Script: 500:c_phpmailer.inc
+Date: Fri, 13 Nov 2015 18:49:01 -0700
+From: Eat24 <MaitreD@eat24.com>
+Message-ID: <a4848322c794ed9a2879cd716ceb1297@eat24hours.com>
+X-Priority: 3
+X-CreateTime: 2015-11-13 18:49:01
+X-SendTime: 2015-11-13 18:49:01
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="b1_a4848322c794ed9a2879cd716ceb1297"
+Content-Transfer-Encoding: 8bit;
+X-SG-EID: fEhYqgEIL9xaxVBrc8ecqpbouIP0l6p7WumnsmzoFl1GZWmBf+OnN4iN96XiUIHczh08yH2fMPyz3v
+ y+K4I+ODKPiCIPMkSeXdpT5UxGC2Dtog0VY05QuROhxEMLlhYo9yRzOphX69P3BSwWlNFaAZRmU6vL
+ PWCLrzjk0T5USWY=
+
+--b1_a4848322c794ed9a2879cd716ceb1297
+Content-Type: text/plain; charset = "iso-8859-1"
+content-transfer-encoding: quoted-printable
+
+fax_40807761=0D
+Click Here to confirm this order =0D
+The Rebellion=0D
+ORDER # W24149-11378=0D
+Placed on: Nov 13, 2015 6:48pm=0D
+To confirm and adjust orders, get the Owner app at Eat24.com/eat24orders  o=
+r call (877) 449-7090=0D
+ASAP=0D
+Delivery=0D
+George LeRoy=0D
+(720) 984-8032=0D
+2831 S Acoma St=0D
+Englewood, 80110, CO=0D
+Qty=0D
+Item=0D
+Price=0D
+2x=0D
+Jumbo Wings (10 Pcs)=0D
+Choice of Wing:  Bone-In=0D
+Make it:  Regular=0D
+Wing Style:  Mild=0D
+Choice of Dipping Sauce:  Blue Cheese=0D
+Extra Dipping Sauce:  Blue Cheese=C2=A0($0.85=C2=A0Extra)=0D
+Please bring as many blue cheese as possible.=0D
+$18.68=0D
+1x=0D
+Jalapeno Poppers=0D
+Choice of Dipping Sauce:  Blue Cheese=0D
+$4.49=0D
+END OF ORDER=0D
+PREPAID=0D
+SUBTOTAL=0D
+$23.17=0D
+DELIVERY FEE=0D
+$2.00=0D
+TAX=0D
+$1.85=0D
+TIP=0D
+$5.40 =0D
+I agree to pay the total amount.=0D
+DISCOVER ending in 8141=0D
+TOTAL=0D
+$32.42=0D
+CONFIRM THIS ORDER=0D
+(415) 649-0074=0D
+Example: 8613#min (min =3D minutes =E2=80=98til Delivery)=0D
+8613#=0D
+Click Here to confirm this order=0D
 
 
-*Click Here to confirm this order*
-<http://eat24hours.com/index.php?SCR=3Ds_order_confirm&roid=3DA24149-11606&=
-key=3Dd4fa3d918e55dd91bae4850654a169c4&time=3D1451699193&cpa=3Dv2>
-*The Rebellion*
-ORDER # *24149-11606*
-Placed on: Jan 1, 2016 6:46pm
-To confirm and adjust orders, get the Owner app at *Eat24.com/eat24orders *
-or call *(877) 449-7090 <%28877%29%20449-7090>*
-*ASAP* *Delivery*
-suzanne bates
-*(303) 263-2898 <%28303%29%20263-2898>*
-545 S Clay St
-Denver, 80219, CO
-Instructions
-*Ring doorbell *
-*Qty* *Item* *Price* *1x* Seasoned Curly Fries $2.29 *1x* Classic BLT
-Sandwich *Extra Cheese*: American (2 Slices) ($1.25 Extra) $5.74 *1x* Giant
-Cookies (Vegan) *Choice of Cookie*: Lemon Poppyseed $3.99 *1x* Cheese
-Sticks *Choice
-of Dipping Sauce*: Ranch $6.99
-*END OF ORDER*
-Do not charge
-*PREPAID*
-SUBTOTAL $19.01 DELIVERY FEE $2.00 TAX $1.52 TIP $3.38
-I agree to pay the total amount.
-PAYPALSDK ending in 0 TOTAL *$25.91*
-CONFIRM THIS ORDER
-Call or text: *(415) 649-0074 <%28415%29%20649-0074>*
-Example: *5263#min* (min =3D minutes =E2=80=98til Delivery)
-Confirmation Code
-*5263#*
-*Click Here to confirm this order*
-<http://eat24hours.com/index.php?SCR=3Ds_order_confirm&roid=3DA24149-11606&=
-key=3Dd4fa3d918e55dd91bae4850654a169c4&time=3D1451699193&cpa=3Dv2>
+--b1_a4848322c794ed9a2879cd716ceb1297
+Content-Type: text/html; charset = "iso-8859-1"
+content-transfer-encoding: quoted-printable
 
---047d7b16002194f3fa0528607ec6
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br><div class=3D"gmail_quote">---------- Forwarded messag=
-e ----------<br>From: <b class=3D"gmail_sendername">Eat24</b> <span dir=3D"=
-ltr">&lt;<a href=3D"mailto:MaitreD@eat24.com">MaitreD@eat24.com</a>&gt;</sp=
-an><br>Date: Fri, Jan 1, 2016 at 6:46 PM<br>Subject: Code: 5263# for Delive=
-ry Order #24149-11606 Address: 545 S Clay St<br>To: <a href=3D"mailto:staff=
-@rebellionpizza.com">staff@rebellionpizza.com</a><br><br><br><u></u>
-
-
-
-
-
-   =20
-
-   =20
-
-
-
-<div style=3D"font-family:Arial">
-
-        <div style=3D"margin-bottom:10px;padding:17px 0;background:#0e83cd;=
-font-size:14pt;text-align:center">
-
-           <a href=3D"http://eat24hours.com/index.php?SCR=3Ds_order_confirm=
-&amp;roid=3DA24149-11606&amp;key=3Dd4fa3d918e55dd91bae4850654a169c4&amp;tim=
-e=3D1451699193&amp;cpa=3Dv2" style=3D"text-decoration:none;color:#ffffff" t=
-arget=3D"_blank"><b>Click Here to confirm this order</b></a>=20
-
-        </div>
-
-        <div style=3D"margin-bottom:10px;border-bottom:1px dashed black"></=
-div>
-
-    <div style=3D"width:100%;background:#ffffff">
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/htm=
+l4/strict.dtd">=0D
+<html xmlns=3D"http://www.w3.org/1999/xhtml">=0D
+<head>=0D
+    <META http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">=0D
+    <title>fax_40807761</title>=0D
+</head>=0D
+<body style=3D"font-family:Arial">=0D
+        <div style=3D"margin-bottom:10px; padding:17px 0; background:#0e83c=
+d; font-size:14pt; text-align:center">=0D
+           <a href=3D'http://eat24hours.com/index.php?SCR=3Ds_order_confirm=
+&roid=3DW24149-11378&key=3D53016d5aeb29247491be5a1ae060ed22&time=3D14474657=
+32&cpa=3Dv2' style=3D"text-decoration:none; color:#ffffff;"><b>Click Here t=
+o confirm this order</b></a> =0D
+        </div>=0D
+        <div style=3D"margin-bottom:10px; border-bottom:1px dashed black"><=
+/div>=0D
+    <div style=3D"width: 100%; background:#ffffff;">=0D
         <table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D=
-"0" style=3D"padding-bottom:10px;border-bottom:1px dashed black">
-
-            <tbody><tr>
-
+"0" style=3D"padding-bottom:10px; border-bottom:1px dashed black">=0D
+            <tr>=0D
                 <td align=3D"left"><img src=3D"http://eat24hours.com/static=
-/v4/images/orders2/fax_logo_v2.png" border=3D"0" style=3D"width:180px"></td=
->
-
-                <td align=3D"right" style=3D"font-size:12pt">
-
-                    <div><b>The Rebellion</b></div>
-
-                    <div style=3D"padding:3px 0">ORDER # <b>24149-11606</b>=
-</div>
-
-                    <div>Placed on: Jan 1, 2016 6:46pm</div>
-
-                </td>
-
-            </tr>
-
-        </tbody></table>
-
-        <div style=3D"font-size:11pt;padding:14px 0">To confirm and adjust =
-orders, get the Owner app at <b>Eat24.com/eat24orders </b> or call <b><a hr=
-ef=3D"tel:%28877%29%20449-7090" value=3D"+18774497090" target=3D"_blank">(8=
-77) 449-7090</a></b></div>
-
+/v4/images/orders2/fax_logo_v2.png" border=3D"0" style=3D"width:180px"/></t=
+d>=0D
+                <td align=3D"right" style=3D"font-size:12pt">=0D
+                    <div><b>The Rebellion</b></div>=0D
+                    <div style=3D"padding:3px 0">ORDER # <b>W24149-11378</b=
+></div>=0D
+                    <div>Placed on: Nov 13, 2015 6:48pm</div>=0D
+                </td>=0D
+            </tr>=0D
+        </table>=0D
+        <div style=3D"font-size:11pt; padding:14px 0">To confirm and adjust=
+ orders, get the Owner app at <b>Eat24.com/eat24orders </b> or call <b>(877=
+) 449-7090</b></div>=0D
         <table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D=
-"0" style=3D"padding:10px 12px;border:1px solid black">
-
-            <tbody><tr>
-
-                <td align=3D"left" style=3D"font-size:18pt">
-
-                        <b>ASAP</b>
-
-                </td>
-
-                <td align=3D"right" style=3D"font-size:30pt;text-transform:=
-uppercase"><b>Delivery</b></td>
-
-            </tr>
-
-        </tbody></table>
-
+"0" style=3D"padding:10px 12px; border:1px solid black">=0D
+            <tr>=0D
+                <td align=3D"left" style=3D"font-size:18pt">=0D
+                        <b>ASAP</b>=0D
+                </td>=0D
+                <td align=3D"right" style=3D"font-size:30pt; text-transform=
+:uppercase"><b>Delivery</b></td>=0D
+            </tr>=0D
+        </table>=0D
         <table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D=
-"0" style=3D"font-size:12pt;border-bottom:2px solid black">
-
-            <tbody><tr>
-
-                <td width=3D"33%" style=3D"padding:10px 0">
-
-                    <div style=3D"border-right:1px solid black">
-
-                        <div>suzanne bates</div>
-
-                        <div style=3D"font-size:14pt"><b><a href=3D"tel:%28=
-303%29%20263-2898" value=3D"+13032632898" target=3D"_blank">(303) 263-2898<=
-/a></b></div>
-
-                            <div>545 S Clay St</div>
-
-                            <div></div>
-
-                            <div>Denver, 80219, CO</div>
-
-                           =20
-
-                    </div>
-
-                </td>
-
-                <td style=3D"padding:10px 15px;vertical-align:top">
-
-                    <div>Instructions</div>
-
-                    <div style=3D"font-size:14pt">
-
-                        <b><i>Ring doorbell </i></b>
-
-                    </div>
-
-                </td>
-
-            </tr>
-
-        </tbody></table>
-
-       =20
-
-       =20
-
+"0" style=3D"font-size:12pt; border-bottom:2px solid black">=0D
+            <tr>=0D
+                <td width=3D"33%" style=3D"padding:10px 0">=0D
+                    <div >=0D
+                        <div>George LeRoy</div>=0D
+                        <div style=3D"font-size:14pt"><b>(720) 984-8032</b>=
+</div>=0D
+                            <div>2831 S Acoma St</div>=0D
+                            <div></div>=0D
+                            <div>Englewood, 80110, CO</div>=0D
+                            =0D
+                    </div>=0D
+                </td>=0D
+            </tr>=0D
+        </table>=0D
+        =0D
+        =0D
         <table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D=
-"0" style=3D"border-bottom:2px solid black">
-
-            <tbody><tr style=3D"font-size:11pt">
-
+"0" style=3D"border-bottom:2px solid black">=0D
+            <tr style=3D"font-size:11pt">=0D
                 <th align=3D"left" width=3D"50" style=3D"padding:7px 0 0"><=
-b>Qty</b></th>
-
+b>Qty</b></th>=0D
                 <th align=3D"left" style=3D"padding:7px 0 0"><b>Item</b></t=
-h>
-
+h>=0D
                 <th align=3D"right" width=3D"90" style=3D"padding:7px 0 0">=
-<b>Price</b></th>
-
-            </tr>
-
-                <tr>
-
-                    <td style=3D"padding:7px 0;font-size:14pt;border-bottom=
-:1px dashed black;vertical-align:top"><b>1x</b></td>
-
-                    <td style=3D"padding:7px 0;border-bottom:1px dashed bla=
-ck">
-
+<b>Price</b></th>=0D
+            </tr>=0D
+                <tr>=0D
+                    <td style=3D"padding:7px 0; font-size:14pt; border-bott=
+om:1px dashed black; vertical-align:top"><b>2x</b></td>=0D
+                    <td style=3D"padding:7px 0; border-bottom:1px dashed bl=
+ack">=0D
                         <table border=3D"0" cellpadding=3D"0" cellspacing=
-=3D"0">
-
-                            <tbody><tr><td colspan=3D"2" style=3D"padding-b=
-ottom:3px;font-size:14pt">Seasoned Curly Fries</td></tr>
-
-                           =20
-
-                        </tbody></table>
-
-                    </td>
-
-                    <td align=3D"right" style=3D"padding:7px 0;font-size:13=
-pt;border-bottom:1px dashed black;vertical-align:top">$2.29</td>
-
-                </tr>
-
-                <tr>
-
-                    <td style=3D"padding:7px 0;font-size:14pt;border-bottom=
-:1px dashed black;vertical-align:top"><b>1x</b></td>
-
-                    <td style=3D"padding:7px 0;border-bottom:1px dashed bla=
-ck">
-
-                        <table border=3D"0" cellpadding=3D"0" cellspacing=
-=3D"0">
-
-                            <tbody><tr><td colspan=3D"2" style=3D"padding-b=
-ottom:3px;font-size:14pt">Classic BLT Sandwich</td></tr>
-
+=3D"0">=0D
+                            <tr><td colspan=3D"2" style=3D"padding-bottom:3=
+px; font-size:14pt">Jumbo Wings (10 Pcs)</td></tr>=0D
                             <tr style=3D"font-size:11pt"><td colspan=3D"2">=
-<b>Extra Cheese</b>:  American (2 Slices)=C2=A0($1.25=C2=A0Extra)</td></tr>
-
-                           =20
-
-                        </tbody></table>
-
-                    </td>
-
-                    <td align=3D"right" style=3D"padding:7px 0;font-size:13=
-pt;border-bottom:1px dashed black;vertical-align:top">$5.74</td>
-
-                </tr>
-
-                <tr>
-
-                    <td style=3D"padding:7px 0;font-size:14pt;border-bottom=
-:1px dashed black;vertical-align:top"><b>1x</b></td>
-
-                    <td style=3D"padding:7px 0;border-bottom:1px dashed bla=
-ck">
-
+<b>Choice of Wing</b>:  Bone-In<br><b>Make it</b>:  Regular<br><b>Wing Styl=
+e</b>:  Mild<br><b>Choice of Dipping Sauce</b>:  Blue Cheese<br><b>Extra Di=
+pping Sauce</b>:  Blue Cheese&nbsp;($0.85&nbsp;Extra)</td></tr>=0D
+                            <!--=0D
+                            -->=0D
+                                <tr><td style=3D"font-size:11pt; vertical-a=
+lign:top"><b>Instructions: <i style=3D"font-size:13pt">Please bring as many=
+ blue cheese as possible.</i></b></td></tr>=0D
+                        </table>=0D
+                    </td>=0D
+                    <td align=3D"right" style=3D"padding:7px 0; font-size:1=
+3pt; border-bottom:1px dashed black; vertical-align:top">$18.68</td>=0D
+                </tr>=0D
+                <tr>=0D
+                    <td style=3D"padding:7px 0; font-size:14pt;  vertical-a=
+lign:top"><b>1x</b></td>=0D
+                    <td style=3D"padding:7px 0; ">=0D
                         <table border=3D"0" cellpadding=3D"0" cellspacing=
-=3D"0">
-
-                            <tbody><tr><td colspan=3D"2" style=3D"padding-b=
-ottom:3px;font-size:14pt">Giant Cookies (Vegan)</td></tr>
-
+=3D"0">=0D
+                            <tr><td colspan=3D"2" style=3D"padding-bottom:3=
+px; font-size:14pt">Jalapeno Poppers</td></tr>=0D
                             <tr style=3D"font-size:11pt"><td colspan=3D"2">=
-<b>Choice of Cookie</b>:  Lemon Poppyseed</td></tr>
-
-                           =20
-
-                        </tbody></table>
-
-                    </td>
-
-                    <td align=3D"right" style=3D"padding:7px 0;font-size:13=
-pt;border-bottom:1px dashed black;vertical-align:top">$3.99</td>
-
-                </tr>
-
-                <tr>
-
-                    <td style=3D"padding:7px 0;font-size:14pt;vertical-alig=
-n:top"><b>1x</b></td>
-
-                    <td style=3D"padding:7px 0">
-
-                        <table border=3D"0" cellpadding=3D"0" cellspacing=
-=3D"0">
-
-                            <tbody><tr><td colspan=3D"2" style=3D"padding-b=
-ottom:3px;font-size:14pt">Cheese Sticks</td></tr>
-
-                            <tr style=3D"font-size:11pt"><td colspan=3D"2">=
-<b>Choice of Dipping Sauce</b>:  Ranch</td></tr>
-
-                           =20
-
-                        </tbody></table>
-
-                    </td>
-
-                    <td align=3D"right" style=3D"padding:7px 0;font-size:13=
-pt;vertical-align:top">$6.99</td>
-
-                </tr>
-
-        </tbody></table>
-
-        <div style=3D"padding-top:7px;font-size:12pt;text-align:center"><b>=
-END OF ORDER</b></div>
-
+<b>Choice of Dipping Sauce</b>:  Blue Cheese</td></tr>=0D
+                            <!--=0D
+                            -->=0D
+                        </table>=0D
+                    </td>=0D
+                    <td align=3D"right" style=3D"padding:7px 0; font-size:1=
+3pt;  vertical-align:top">$4.49</td>=0D
+                </tr>=0D
+        </table>=0D
+        <div style=3D"padding-top:7px; font-size:12pt; text-align:center"><=
+b>END OF ORDER</b></div>=0D
         <table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D=
-"0" style=3D"padding:0 0 10px;font-size:12pt">
-
-            <tbody><tr>
-
-                <td width=3D"50%" style=3D"vertical-align:top">
-
-                        <div style=3D"width:150px;padding:8px;border:1px so=
-lid black">Do not charge<div style=3D"font-size:18pt"><b>PREPAID</b></div><=
-/div>
-
-                </td>
-
-                <td>
-
+"0" style=3D"padding:0 0 10px; font-size:12pt">=0D
+            <tr>=0D
+                <td width=3D"50%" style=3D"vertical-align:top">=0D
+                        <div style=3D"width:150px; padding:8px; border:1px =
+solid black">Do not charge<div style=3D"font-size:18pt"><b>PREPAID</b></div=
+></div>=0D
+                </td>=0D
+                <td>=0D
                     <table width=3D"100%" border=3D"0" cellpadding=3D"0" ce=
-llspacing=3D"0">
-
-                        <tbody><tr>
-
-                            <td align=3D"right" style=3D"font-size:10pt;ver=
-tical-align:bottom">SUBTOTAL</td>
-
-                            <td align=3D"right" width=3D"125">$19.01</td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td align=3D"right" style=3D"font-size:10pt;ver=
-tical-align:bottom">DELIVERY FEE</td>
-
-                            <td align=3D"right">$2.00</td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td align=3D"right" style=3D"font-size:10pt;ver=
-tical-align:bottom">TAX</td>
-
-                            <td align=3D"right">$1.52</td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td align=3D"right" style=3D"font-size:10pt;ver=
-tical-align:bottom">TIP</td>
-
-                            <td align=3D"right"> $3.38 </td>
-
-                        </tr>
-
-                    </tbody></table>
-
-                </td>
-
-            </tr>
-
-            <tr>
-
-                <td style=3D"padding-top:30px;font-size:12pt">
-
-                        <div style=3D"padding:6px 0 2px;border-top:1px soli=
-d black">I agree to pay the total amount.</div>
-                                PAYPALSDK ending in 0
-
-                </td>
-
-                <td style=3D"padding:4px 0;vertical-align:top">
-
+llspacing=3D"0">=0D
+                        <tr>=0D
+                            <td align=3D"right" style=3D"font-size:10pt; ve=
+rtical-align:bottom">SUBTOTAL</td>=0D
+                            <td align=3D"right" width=3D"125">$23.17</td>=
+=0D
+                        </tr>=0D
+                        <tr>=0D
+                            <td align=3D"right" style=3D"font-size:10pt; ve=
+rtical-align:bottom">DELIVERY FEE</td>=0D
+                            <td align=3D"right">$2.00</td>=0D
+                        </tr>=0D
+                        <tr>=0D
+                            <td align=3D"right" style=3D"font-size:10pt; ve=
+rtical-align:bottom">TAX</td>=0D
+                            <td align=3D"right">$1.85</td>=0D
+                        </tr>=0D
+                        <tr>=0D
+                            <td align=3D"right" style=3D"font-size:10pt; ve=
+rtical-align:bottom">TIP</td>=0D
+                            <td align=3D"right"> $5.40 </td>=0D
+                        </tr>=0D
+                    </table>=0D
+                </td>=0D
+            </tr>=0D
+            <tr>=0D
+                <td style=3D"padding-top:30px; font-size:12pt">=0D
+                        <div style=3D"padding:6px 0 2px; border-top:1px sol=
+id black">I agree to pay the total amount.</div>=0D
+                                DISCOVER ending in 8141=0D
+                </td>=0D
+                <td style=3D"padding:4px 0; vertical-align:top">=0D
                     <table width=3D"100%" border=3D"0" cellpadding=3D"0" ce=
-llspacing=3D"0">
-
-                        <tbody><tr>
-
+llspacing=3D"0">=0D
+                        <tr>=0D
                             <td align=3D"right" style=3D"font-size:10pt">TO=
-TAL</td>
-
+TAL</td>=0D
                             <td align=3D"right" width=3D"125" style=3D"font=
--size:14pt"><b>$25.91</b></td>
-
-                        </tr>
-
-                    </tbody></table>
-
-                </td>
-
-            </tr>
-
-        </tbody></table>
-
+-size:14pt"><b>$32.42</b></td>=0D
+                        </tr>=0D
+                    </table>=0D
+                </td>=0D
+            </tr>=0D
+        </table>=0D
         <table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D=
-"0" style=3D"border-top:1px dashed black;border-bottom:1px dashed black">
-
-            <tbody><tr>
-
-                <td style=3D"padding:10px 15px 10px 0;font-size:12pt;border=
--right:1px dashed black">
-
-                    <div style=3D"font-size:14pt">CONFIRM THIS ORDER</div>
-
+"0" style=3D"border-top:1px dashed black; border-bottom:1px dashed black">=
+=0D
+            <tr>=0D
+                <td style=3D"padding:10px 15px 10px 0; font-size: 12pt; bor=
+der-right:1px dashed black">=0D
+                    <div style=3D"font-size:14pt">CONFIRM THIS ORDER</div>=
+=0D
                     <div style=3D"padding:5px 0 5px">Call or text: <b style=
-=3D"font-size:16pt"><a href=3D"tel:%28415%29%20649-0074" value=3D"+14156490=
-074" target=3D"_blank">(415) 649-0074</a></b></div>
-
-                    <div>Example: <b>5263#min</b> (min =3D minutes =E2=80=
-=98til Delivery)</div>
-
-                </td>
-
+=3D"font-size: 16pt">(415) 649-0074</b></div>=0D
+                    <div>Example: <b>8613#min</b> (min =3D minutes &lsquo;t=
+il Delivery)</div>=0D
+                </td>=0D
                 <td align=3D"center" style=3D"font-size:14pt">Confirmation =
-Code <div style=3D"font-size:30pt"><b>5263#</b></div></td>
-
-            </tr>
-
-        </tbody></table>
-
-    </div>
-
-        <div style=3D"margin-top:10px"></div>
-
-        <div style=3D"margin-top:10px;padding:17px 0;background:#0e83cd;fon=
-t-size:14pt;text-align:center">
-
-           <a href=3D"http://eat24hours.com/index.php?SCR=3Ds_order_confirm=
-&amp;roid=3DA24149-11606&amp;key=3Dd4fa3d918e55dd91bae4850654a169c4&amp;tim=
-e=3D1451699193&amp;cpa=3Dv2" style=3D"text-decoration:none;color:#ffffff" t=
-arget=3D"_blank"><b>Click Here to confirm this order</b></a>=20
-
-        </div>
-
+Code <div style=3D"font-size:30pt"><b>8613#</b></div></td>=0D
+            </tr>=0D
+        </table>=0D
+    </div>=0D
+        <div style=3D"margin-top:10px"></div>=0D
+        <div style=3D"margin-top:10px; padding:17px 0; background:#0e83cd; =
+font-size:14pt; text-align:center">
+           <a href=3D'http://eat24hours.com/index.php?SCR=3Ds_order_confirm=
+&roid=3DW24149-11378&key=3D53016d5aeb29247491be5a1ae060ed22&time=3D14474657=
+32&cpa=3Dv2' style=3D"text-decoration:none; color:#ffffff;"><b>Click Here t=
+o confirm this order</b></a> =0D
+        </div>=0D
 
 <img src=3D"https://u1874385.ct.sendgrid.net/wf/open?upn=3DccmHh5BsojLNyNG8=
-WUDbKh0-2FFKATN6YN2ztuWlubRmvbLbTema5I2TnZZFGjaoo99NqrbF1s3rGlVppirf8NMGi5g=
-Ev2q-2FHjf52b7w6ZotBMrpioF88VtpS1Pky6OyXoS8ZftcuR-2Ba4Pr2SLtZcuWEEvfkAxoz0e=
-8iC0koiJhrfe-2F4opMgMbJm1UmCaA1mdh6rfcTBL7Uh9X94-2FM2HFe0CYcvp1VjH0yG5kb9iY=
-nT2g-3D" alt=3D"" width=3D"1" height=3D"1" border=3D"0" style=3D"min-height=
-:1px!important;width:1px!important;border-width:0!important;margin-top:0!im=
-portant;margin-bottom:0!important;margin-right:0!important;margin-left:0!im=
-portant;padding-top:0!important;padding-bottom:0!important;padding-right:0!=
-important;padding-left:0!important">
-</div>
+WUDbKh0-2FFKATN6YN2ztuWlubRmvJgmxBwX6vnk2F0pwYixo-2B-2BfLQDDJn8hFbmrj2DohMk=
+7jcPIDOJ6wi3nwJ1e5EeUaHosXlocTWKGXvduKm6PL0wn1oJUhXNprlSaogDOV7n6qRjvaRJgJ5=
+PLOTPnv4vsQGOJ157AjoDXbckZcm-2FjbkTK5xxpZuQwln-2Bp5OmMK4FipgZCEou1SSXpPCv0a=
+pLn8-3D" alt=3D"" width=3D"1" height=3D"1" border=3D"0" style=3D"height:1px=
+ !important;width:1px !important;border-width:0 !important;margin-top:0 !im=
+portant;margin-bottom:0 !important;margin-right:0 !important;margin-left:0 =
+!important;padding-top:0 !important;padding-bottom:0 !important;padding-rig=
+ht:0 !important;padding-left:0 !important;"/>
+</body>=0D
+</html>=0D
+=0D
 
 
 
+--b1_a4848322c794ed9a2879cd716ceb1297--
 
-
-
-
-</div><br></div>
-
---047d7b16002194f3fa0528607ec6--
