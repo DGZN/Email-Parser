@@ -7,6 +7,7 @@ function Walker(dir) {
   this._dir   = dir || __dirname
   this._files = []
   this.walk()
+  this.max = 100
 }
 
 Walker.prototype.walk = function(){
@@ -14,7 +15,7 @@ Walker.prototype.walk = function(){
     followLinks: false
   });
   walker.on('file', function(root, stat, next) {
-    if (this._files.length >= 1000)
+    if (this._files.length >= this.max)
       return;
     this._files.push(root + '/' + stat.name);
     this.emit('file', root + '/' + stat.name)
@@ -31,7 +32,6 @@ Walker.prototype.files = function(){
   , count: this._files.length
   }
 }
-
 
 util.inherits(Walker, EventEmitter);
 module.exports = Walker;
