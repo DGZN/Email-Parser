@@ -5,9 +5,9 @@ EventEmitter = require('events').EventEmitter;
 function Queue(options) {
   if ( ! (this instanceof Queue) )
     return new Queue(options);
-  this._queue   = [];
-  this._jobs    = 0;
-  this._maxJobs = options.max || 1;
+  this._queue    = [];
+  this._jobs     = 0;
+  this._maxAsync = options.concurrent || 1;
 }
 
 Queue.prototype.add = function(item) {
@@ -16,7 +16,7 @@ Queue.prototype.add = function(item) {
 }
 
 Queue.prototype.processQueue = function() {
-  if (this._jobs >= this._maxJobs
+  if (this._jobs >= this._maxAsync
     || !this._queue.length
     || !this._queue[0])
     return;
@@ -27,7 +27,7 @@ Queue.prototype.processQueue = function() {
 }
 
 Queue.prototype.next = function() {
-  if (!this._queue.length || this._jobs >= this._maxJobs)
+  if (!this._queue.length || this._jobs >= this._maxAsync)
     return;
   this._queue.shift()
   this.processQueue()
