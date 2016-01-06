@@ -23,7 +23,6 @@ Queue.prototype.processQueue = function() {
 
 Queue.prototype.next = function() {
   if (!this._queue.length || this._jobs >= this._maxAsync)
-    return;
   this._queue.shift()
   this.processQueue()
 }
