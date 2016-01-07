@@ -13,10 +13,12 @@ inbox.on('file', function(file){
   jobs.add(file, function(file, next){
     var parse = new parser(file)
     parse.on('end', function(order){
-      if (!order)
+      if (!order) {
         failed++
-      else
+        errors('@emptyOrder ' + file)
+      } else {
         orders(order)
+      }
       next()
     })
   })
