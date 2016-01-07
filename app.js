@@ -1,6 +1,7 @@
 var walker = require('./lib/walker'),
     queue  = require('./lib/queue'),
     orders = require('debug')('orders')
+    errors = require('debug')('app:errors')
     parser = require('./lib/parser');
 
 
@@ -21,6 +22,7 @@ inbox.on('file', function(file){
   })
 }).on('end', function(files){
   jobs.finish(() => {
+    errors(failed + ' files failed out of ' + files.count)
     orders('Parsed ' + (files.count - failed) + '/' + files.count)
   })
 })
