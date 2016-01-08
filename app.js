@@ -30,13 +30,13 @@ parser.forEach(function(order){
       error(data)
     debug('Matched ' + order.path)
     if (data.indexOf('Rebellion')==-1)
-      error('NO MATCH FOR Rebellion')
+      error('no match for Rebellion')
     info(data)
     orders.push({
       path:  order.path
     , order: data
     })
-    writeFile(order.path, data)
+    //writeFile(order.path, data)
   })
 })
 
