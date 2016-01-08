@@ -5,10 +5,25 @@ var debug = require('debug')('test:email-parsing'),
   cheerio = require('cheerio'),
    parser = require('../lib/parser');
 
-const FILE = '/Users/kylewilliams/dgzn/Email-Parser/inbox/msg-1002-body.txt'
+const FILE = './inbox/msg-393-body.txt'
+
+/*
+  17327
+  2669
+  3603
+  4818
+  5087
+  7015
+  7494
+  8713
+  883
+  9488
+  9999
+*/
 
 parser.prototype.parse = function(file){
   var self = this;
+  this.order = {};
   var parser = new lazy(fs.createReadStream(file))
     .forEach(function(body){
       if (body) {
@@ -31,41 +46,19 @@ parser.prototype.parse = function(file){
         break;
     }
   })
-  .on('pipe', function() {
-    switch (self.template || '') {
-      case 'eat24':
-        if (self.body) {
-          $ = cheerio.load(require('util').inspect(self.body, { depth: null }))
-          var order = $('table:nth-child(5)').text()
-            .replace(/(\\r)/g,' ')
-            .replace(/(=20)/g,' ')
-            .replace(/(=)/g,' ')
-            .replace(/(C2A0)/gi,' ')
-            // .replace(/^\s+/gi, ' ')
-            .replace(/(Make)/gi, ' Make')
-            .replace(/(Extra\))/gi, 'Extra) ')
-            .replace(/(Choice)/gi, ' Choice')
-            .replace(/(\s)+/g, ' ')
-            .replace(/(\d+[x])/gm, "\r\n $1")
-            .replace(')(',') ( ')
-            .replace(/(0D)/gi, ' ')
-            .replace('Qty Item Price', ' Qty Item Price \r\n --- ---- -----')
-          if (order)
-            return self.emit('end', order)
-          return self.emit('end', null)
-        }
-        break;
-    }
-  })
 }
 
 parser.prototype.eatTwentyFour = function(body){
-  if (body)
-    debug(body.toString())
-  // if (line.toString().replace(/(=0D)/gmi, '').indexOf('Click Here to confirm this order')>=0)
-  //   this.matched = true
-  // if (this.matched)
-  //   this.body += line
+  if (!body)
+    return error('body-empty');
+  this.html = body.toString();
+  var details = this.html.split('fax')
+  if (details[1]) {
+    var _details = details[1].match(/(click)[\s\S]+(#)$/gmi)
+    if (_details)
+      return debug(_details[0])
+    debug(details[1])
+  }
 }
 
 

@@ -1,30 +1,70 @@
-var walker = require('./lib/walker'),
-    queue  = require('./lib/queue'),
-    orders = require('debug')('orders')
-    errors = require('debug')('app:errors')
-    parser = require('./lib/parser');
+const fs     = require('fs');
+const util   = require('util');
+const stream = require('stream');
+const read   = require('stream').Readable;
+const info   = require('debug')('info:Read-Stream');
+const debug  = require('debug')('debug:Read-Stream');
+const error  = require('debug')('error:Read-Stream');
+const lazy   = require('lazy');
+const walker = require('./lib/walker');
+const HTMLParser = require('./lib/parser');
 
+const maxReads = 10000;
 
-var jobs  = new queue({concurrent: 1});
-var inbox = new walker({dir: __dirname + '/inbox', max: 10000});
+var _files  = [];
+var orders = [];
 
-var failed = 0;
-inbox.on('file', function(file){
-  jobs.add(file, function(file, next){
-    var parse = new parser(file)
-    parse.on('end', function(order){
-      if (!order) {
-        failed++
-        errors('@emptyOrder ' + file)
-      } else {
-        orders(order)
-      }
-      next()
+fs.readdir('./inbox/', function(err, files){
+  if (err)
+    throw err;
+  _files = files;
+  debug('Found ' + _files.length + ' files')
+  readFile();
+})
+
+var parser = new lazy;
+parser.forEach(function(order){
+  debug(order.path + ' ' + order.data.length)
+  var parse = new HTMLParser(order.data, function(data){
+    if (!data)
+      error(data)
+    debug('Matched ' + order.path)
+    if (data.indexOf('Rebellion')==-1)
+      error('NO MATCH FOR Rebellion')
+    info(data)
+    orders.push({
+      path:  order.path
+    , order: data
     })
-  })
-}).on('end', function(files){
-  jobs.finish(() => {
-    errors(failed + ' files failed out of ' + files.count)
-    orders('Parsed ' + (files.count - failed) + '/' + files.count)
+    writeFile(order.path, data)
   })
 })
+
+function readFile(){
+  fs.readFile('./inbox/'+_files[0], (err, data) => {
+    if (err)
+      throw err;
+    if (data.toString().length < 1)
+      error(_files[0] + ' is empty')
+    else
+      debug(_files[0] + ' has ' + data.toString().length + ' chars')
+    parser.emit('data', {
+      path: _files[0]
+    , data: data.toString()
+    })
+    _files.shift();
+    if (_files.length && orders.length < maxReads)
+      return readFile()
+    else
+      debug('Finished processing ' + orders.length + ' files')
+  });
+}
+
+function writeFile(path, data){
+  var path = './orders/'+path.replace('msg', 'order');
+  fs.writeFile(path, data, (err) => {
+    if (err)
+      return error('Error writing to ' + path)
+    debug('Saved order to ' + path)
+  });
+}
