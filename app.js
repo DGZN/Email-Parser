@@ -2,9 +2,9 @@ const fs     = require('fs');
 const util   = require('util');
 const stream = require('stream');
 const read   = require('stream').Readable;
-const info   = require('debug')('info:Read-Stream');
-const debug  = require('debug')('debug:Read-Stream');
-const error  = require('debug')('errors:Read-Stream');
+const info   = require('debug')('info:Orders');
+const debug  = require('debug')('debug:Orders');
+const error  = require('debug')('errors:Orders');
 const lazy   = require('lazy');
 const walker = require('./lib/walker');
 const HTMLParser = require('./lib/parser');
@@ -24,7 +24,6 @@ fs.readdir('./inbox/', function(err, files){
 
 var parser = new lazy;
 parser.forEach(function(order){
-  debug(order.path + ' ' + order.data.length)
   var parse = new HTMLParser(order.data, function(data){
     if (!data)
       error(data)
@@ -32,11 +31,9 @@ parser.forEach(function(order){
     if (data.indexOf('Rebellion')==-1)
       error('no match for Rebellion')
     info(data)
-    orders.push({
-      path:  order.path
-    , order: data
-    })
-    //writeFile(order.path, data)
+    orders.push(order)
+    debug('Writing to ' + order.path)
+    writeFile(order.path, data)
   })
 })
 
