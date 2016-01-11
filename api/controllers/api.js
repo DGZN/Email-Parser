@@ -45,7 +45,7 @@ router.get('/orders', function(req, res, next) {
       count: orders.length
     , data: orders
     });
-  }).sort({date: -1}).limit(1000).select('-_id -__v');
+  }).sort({date: -1}).limit(2000).select('-_id -__v');
 });
 
 router.get('/emails', function(req, res, next) {

@@ -14,30 +14,31 @@ var products = [];
 var parser = new lazy
 
 parser.forEach((html) => {
+  var products = [];
   var data = []
-  html.split('\n').map((line) => {
+  html.split('\n').map((line, i) => {
     if (line.replace(/(\s)+/gm,'').length>0) {
       var line = line.replace(/(\s)+/gm,' ');
-      data.push(line.replace(/^(\s)+/g,''))
-      if (line.replace(' ','')[0]=='$') {
-        products.push(data.join('\n'))
-        data = [];
-        var current = products[products.length-1].split('\n');
-        var product = new Product({
-          name:  current[0]
-        , price: (current.length==3 ? current[2] : current[1])
+      var line = line.replace(/^(\s)+/g,'');
+      if (line[0]=='$') {
+        products.push({
+          name:  data.join(' ')
+        , price: line
         })
-        if (current.length==3)
-          product.desc = current[2];
-        product.save(function(err){
-          if (err)
-            return error('Error saving product ['+product.name+'] to storage ' + err)
-          debug('Saved product ['+product.name+'] to storage')
-          info(product)
-        });
+        data=[]
+      } else {
+        data.push(line.replace(/^(\s)+/g,''))
       }
     }
     return products[products.length-1]
+  })
+  products.map((item) => {
+    var product = new Product(item)
+    product.save((err) => {
+      if (err)
+        return error('Error saving product ['+product.name+'] to storage ' + err)
+      debug('Saved product ['+product.name+'] to storage')
+    })
   })
   debug('GET: http://denver.eat24hours.com/the-rebellion/24149 [200]')
   debug('Matched: ' + products.length)

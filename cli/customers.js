@@ -7,7 +7,7 @@ const cheerio = require("cheerio");
 const Lazy    = require('lazy');
 const Detail  = require('../models/orderdetails');
 
-const LIMIT = 10000;
+const LIMIT = 1;
 
 var customers = [];
 
@@ -30,3 +30,6 @@ Detail.find(function(err, orders) {
     }
   })
 }).limit(LIMIT);
+
+
+//

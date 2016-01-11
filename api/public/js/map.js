@@ -1,5 +1,5 @@
   function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
       zoom: 13,
       center: {lat: 39.6762442, lng: -104.9899863}
     });
@@ -23,7 +23,7 @@
       // });
     })
 
-    var customers = new google.maps.Circle({
+    customers = new google.maps.Circle({
       strokeColor: '#FF0000',
       strokeOpacity: 0.4,
       strokeWeight: 0,
@@ -34,18 +34,7 @@
       radius: 3100
     });
 
-    var customers = new google.maps.Circle({
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.4,
-      strokeWeight: 0,
-      fillColor: '#FF0000',
-      fillOpacity: 0.15,
-      map: map,
-      center: {lat: 39.6543011, lng: -105.0075892},
-      radius: 3100
-    });
-
-    var customers = new google.maps.Circle({
+    customers = new google.maps.Circle({
       strokeColor: '#FF0000',
       strokeOpacity: 0.4,
       strokeWeight: 0,
@@ -57,3 +46,23 @@
     });
 
   }
+
+  $(function(){
+    $.get('http://localhost:3000/api/v1/orders', function(response){
+      var fetching = 0;
+      response.data.map((order) => {
+        var address = order.customer.address.split('\n').join().split(' ').join(',');
+        address = address.replace('\s+',',')
+        $.get('http://maps.google.com/maps/api/geocode/json?address='+address+'&sensor=false', function(data){
+          console.log(data.results[0].geometry.location);
+          setTimeout(function(){
+            var marker = new google.maps.Marker({
+              position: data.results[0].geometry.location,
+              map: map
+            });
+          },1500)
+        })
+        fetching++;
+      })
+    })
+  })
