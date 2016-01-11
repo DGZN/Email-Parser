@@ -29,6 +29,6 @@ function orderModal(data){
   console.log(data);
   $('#orderModalHeader').html('#'+data.code + '<span style="float:right;">'+data.customer.name+' ' + data.customer.phone  +'</span>')
   $('#orderModalContent').html(orderModalContent)
-  $('#orderModalFooter').html('<span style="float: left; font-size: 14px; font-weight:bold">'+ data.customer.address+'</span>')
+  $('#orderModalFooter').html('<span style="float: left; font-size: 18px; margin: 7px; font-weight:bold">'+ data.customer.address+'</span>')
   $('.ui.modal').modal('show')
 }

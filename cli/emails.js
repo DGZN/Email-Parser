@@ -26,10 +26,8 @@ var parsed = 0;
 order.forEach(function(order){
   var parse = new ProdctParser(order.data, function(order){
     if (order) {
-      if (order.raw.indexOf('Rebellion')==-1) {
-        debug('Success: '+ordersParsed++)
+      if (order.raw.indexOf('Rebellion')==-1)
         return error('no match for Rebellion')
-      }
     }
   })
 })
@@ -97,7 +95,6 @@ emails.forEach(function(email){
         }
       }
 
-      debug(emailsRead)
       orderDetails.emit('data', order)
 
     } else {

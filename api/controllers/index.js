@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     if (err)
       throw err;
     res.render('index', { title: 'The Rebellion', orders: orders});
-  }).sort({date: -1}).limit(100).select('-_id -__v');
+  }).sort({date: -1}).limit(250).select('-_id -__v');
 });
 
 router.get('/customers', function(req, res, next) {

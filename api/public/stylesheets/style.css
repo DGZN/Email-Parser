@@ -15,3 +15,15 @@ tr {
 #map {
   height: 100%;
 }
+
+.sales {
+  position: relative;
+  left: 56%;
+  display: inline-block;
+  width: 200px;
+  right: 25px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0px 25px 0 0;
+  font-size: 16px;
+  color: rgba(186,186,186,1);
+}
