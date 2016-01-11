@@ -42,4 +42,12 @@ router.get('/products', function(req, res, next) {
   });
 });
 
+router.get('/map', function(req, res, next) {
+  Details.find(function(err, orders) {
+    if (err)
+      throw err;
+    res.render('map', { title: 'The Rebellion', orders: orders});
+  }).sort({date: -1}).limit(100).select('-_id -__v');
+});
+
 module.exports = router;

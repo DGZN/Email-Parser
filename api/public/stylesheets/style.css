@@ -11,3 +11,7 @@ a {
 tr {
   cursor: pointer;
 }
+
+#map {
+  height: 100%;
+}
