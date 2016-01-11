@@ -1,11 +1,39 @@
 extends layout
 
 block content
-  h3 #{title}
-  ul
-    each product in products
-      =product.data
-        br
-        ="------"
-        br
-        br
+
+  table(class="ui celled table")
+    thead
+      tr
+        th Name
+        th Price
+      tbody
+      each product in products
+        tr(data-order=order)
+          td
+            b
+              =product.name
+          td
+            =product.price
+      tfoot
+        tr
+          th(colspan="6")
+            div(class="ui right floated pagination menu")
+              a(class="icon item")
+                i(class="left chevron icon")
+              a(class="icon item")
+                i(class="right chevron icon")
+
+                div(class="ui modal")
+                  i(class="close icon")
+                  div(class="header", id="orderModalHeader")
+
+                  div(class="image content", id="orderModalContent")
+                    div(class="ui medium image")
+                    div(class="description")
+                      div(class="ui header, order-content")
+                  div(class="actions")
+                    div(id="orderModalFooter")
+                    div(class="ui black labeled icon deny button") Cancel
+                    div(class="ui positive right labeled icon button") Confirm Order
+                    i(class="checkmark icon")

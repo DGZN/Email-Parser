@@ -51,22 +51,20 @@ var emailsRead = 0;
 var failed = 0;
 
 emails.forEach(function(email){
+
+    emailsRead++;
+
     var $ = cheerio.load(email.html.replace(/<br><b>/g,' '))
-    TABLE = email.html
     var table = $('table').text()
     var table = table.split('Item')
-
     var details = table[0].replace(/^(\s)+(\s)$/gm,'');
     var details = getOrderCode(details);
     var details = getDate(details)
     var details = getType(details);
     var details = getPhone(details);
-
     var receipt = table[1].replace(/^(\s)+(\s)$/gm,'');
 
     getItems(receipt);
-    emailsRead++;
-
 
     switch (ORDERTYPE) {
       case 'Pickup':
@@ -106,21 +104,8 @@ emails.forEach(function(email){
       error(failed++ + '/' + emailsRead)
     }
 
-    CUSTOMERADDRESS = '';
     ORDERITEMS      = [];
-
-})
-
-emails.on('pipe', () => {
-  debug('EMAILS ARE DONE')
-})
-
-orderDetails.forEach(function(order){
-  new Detail(order).save((err) => {
-    if (err)
-      return error('Unable to save order details to storage ' + err)
-    debug(order.code + '  saved to storage');
-  })
+    CUSTOMERADDRESS = '';
 })
 
 Email.find(function(err, docs) {
@@ -135,6 +120,14 @@ Email.find(function(err, docs) {
     }
   })
 }).limit(LIMIT);
+
+orderDetails.forEach(function(order){
+  new Detail(order).save((err) => {
+    if (err)
+      return error('Unable to save order details to storage ' + err)
+    debug(order.code + '  saved to storage');
+  })
+})
 
 function getType(data){
   data = data.split('\n').filter((line,i) => {

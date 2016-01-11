@@ -3,5 +3,31 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="stylesheet", type="text/css", href="semantic/dist/semantic.min.css")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+    script(src="semantic/dist/semantic.min.js")
+    script(src="/js/orders.js")
+  div(class="ui inverted menu")
+    div(class="header item") The Rebellion
+    a(class="item", href="/") Orders
+    a(class="item", href="/products") Products
+    a(class="item", href="/customers") Customers
+    div(class="ui dropdown item" tabindex="0")
+      Dropdown
+        i(class="dropdown icon")
+      div(class="menu" tabindex="-1")
+        div(class="item") Action
+        div(class="item") Another Action
+        div(class="item") Something else here
+        div(class="divider")
+        div(class="item") Separated Link
+        div(class="divider")
+        div(class="item") One more separated link
+    div(class="right menu")
+      div(class="item")
+        div(class="ui transparent inverted icon input")
+          i(class="search icon")
+          input(type="text" placeholder="Search")
+      a(class="item") Link
   body
     block content

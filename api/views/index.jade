@@ -1,5 +1,59 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+  table(class="ui celled table")
+    thead
+      tr
+        th Order
+        th Date
+        th Type
+        th Items
+        th Customer
+        th Phone
+        th Address
+      tbody
+      each order in orders
+        tr(onclick="orderModal(this)" data-order=order)
+          td
+            div(class="ui ribbon label")
+              h4
+                =order.code
+          td
+            =order.date
+          td
+            =order.type
+          td
+            =order.order.items.length
+          td
+            =order.customer.name
+          td
+            =order.customer.phone
+          td
+            b
+              =order.customer.address
+      tfoot
+        tr
+          th(colspan="6")
+            div(class="ui right floated pagination menu")
+              a(class="icon item")
+                i(class="left chevron icon")
+              a(class="item") 1
+              a(class="item") 2
+              a(class="item") 3
+              a(class="icon item")
+                i(class="right chevron icon")
+
+                div(class="ui modal")
+                  i(class="close icon")
+                  div(class="header", id="orderModalHeader")
+
+                  div(class="image content", id="orderModalContent")
+                    div(class="ui medium image")
+                    div(class="description")
+                      div(class="ui header, order-content")
+                  div(class="actions")
+                    div(id="orderModalFooter")
+                    div(class="ui black labeled icon deny button") Cancel
+                    div(class="ui positive right labeled icon button") Confirm Order
+                    i(class="checkmark icon")
