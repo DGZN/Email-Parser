@@ -1,11 +1,14 @@
 const fs      = require('fs');
+const db      = require('./db');
 const Imap    = require('imap');
 const lazy    = require('lazy');
 const debug   = require('debug')('debug:Email-Fetcher');
+const error   = require('debug')('errors:Email-Fetcher');
 const inspect = require('util').inspect;
 
-var MailParser = require("mailparser").MailParser;
+const Email = require('./models/email');
 
+var MailParser = require("mailparser").MailParser;
 
 var imap = new Imap({
   user: 'staff@rebellionpizza.com',
@@ -23,11 +26,11 @@ var parser = new lazy;
 var parsed = 0;
 
 parser.forEach(function(email){
-  fs.writeFile(email.path, email.body, (err) => {
+  new Email(email).save((err) => {
     if (err)
-      return error('Error writing to ' + path)
-    debug('Saved email to ' + email.path)
-  });
+      return error('Erroring saving ['+email.subject+'] to storage')
+    debug('Saved ['+email.subject+'] to storage')
+  })
   parsed++
 })
 
@@ -43,7 +46,7 @@ imap.once('ready', function() {
   var fs = require('fs'), fileStream;
   openInbox(function(err, box) {
     if (err) throw err;
-    imap.search([ 'ALL', ['SINCE', 'January 1, 2015'], ['FROM', 'MaitreD@eat24.com'] ], function(err, results) {
+    imap.search([ 'ALL', ['SINCE', 'January 1, 2014'], ['FROM', 'MaitreD@eat24.com'] ], function(err, results) {
       if (err) throw err;
       var f = imap.fetch(results, { bodies: '' });
       f.on('message', function(msg, seqno) {
@@ -64,17 +67,17 @@ imap.once('ready', function() {
         });
         mailparser.on("end", function(email){
           parser.emit('data', {
-            path: 'inbox/msg-' + seqno + '-body.txt'
-          , email: email
-          , body: email.text
+            subject: email.subject
+          , date:    email.date
+          , file:    'msg-' + seqno + '-body.txt'
+          , body:    email.text
+          , html:    email.html
           })
         });
       });
       f.once('error', function(err) {
-        console.log('Fetch error: ' + err);
       });
       f.once('end', function() {
-        console.log('Done fetching ' + fetched + ' messages!');
         imap.end();
       });
     });

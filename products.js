@@ -15,7 +15,6 @@ const Order = require('./models/order');
 const Product = require('./models/product');
 
 var _files  = [];
-var products = [];
 
 var rs = new Readable({
   objectMode: true
@@ -24,30 +23,11 @@ var rs = new Readable({
 rs._read = function () {};
 
 rs.on('data', function(item){
-  debug('Storing: ' + item.order.products.length + ' products')
-  var productString = ''
-  var order = new Order({
-    file:    item.order.raw.path
-  , data:    item.order.raw.data
-  , items:   item.order.products
-  , total:   item.order.total
-  , details: item.details
-  })
-  order.save(function(err){
+  new Order(item).save(function(err){
     if (err)
       error('Error saving order to storage ' + err)
     debug('Saved one order to storage')
   });
-  item.order.products.map((item) => {
-    info(item)
-    var product = new Product({
-      data: item
-    });
-    product.save(function(err){
-      if (err)
-        error('Error saving product to storage ' + err)
-    });
-  })
 })
 
 fs.readdir('./orders/', function(err, files){
@@ -61,26 +41,21 @@ fs.readdir('./orders/', function(err, files){
 var parser = new lazy;
 var parsed = 0;
 
-parser.forEach(function(product){
-  var parse = new ProdctParser(product, function(order){
+parser.forEach(function(item){
+  var parse = new ProdctParser(item.body, function(order){
     if (order) {
-      if (order.details.indexOf('Rebellion')==-1)
-        error('no match for Rebellion')
-      info('Details: ' + order.details)
-      info('Products: ' + order.products)
-      order.products.forEach((product) => {
-        info(product)
-      })
-      products.push({
-        path:  product.path
-      , order: order
-      })
-      rs.push({
-        path:  product.path
-      , order: order
-      , details: order.details
-      })
       parsed++;
+      if (order.raw.indexOf('Rebellion')==-1)
+        return error('no match for Rebellion')
+      if (order.items.length) {
+        rs.push({
+          details: order.details
+          , items:   order.items
+          , raw:     order.raw
+        })
+      } else {
+        error(order.raw)
+      }
     }
   })
 })
@@ -100,9 +75,10 @@ function readFile(){
     , data: data.toString()
     })
     _files.shift();
-    if (_files.length && products.length < maxReads)
+    parsed++;
+    if (_files.length && parsed < maxReads)
       return readFile()
-    debug('Finished processing ' + products.length + ' files')
+    info('Finished processing ' + parsed + ' files')
   });
 }
 

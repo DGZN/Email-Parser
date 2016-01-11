@@ -23,6 +23,7 @@
     "lazy": "^1.0.11",
     "mailparser": "^0.5.3",
     "mongoose": "^4.3.4",
+    "request": "^2.67.0",
     "shortid": "^2.2.4",
     "walk": "^2.3.9"
   }

@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Order = new Schema({
-  file: { type: String, required: true },
-  data: { type: String, required: true },
-  details: { type: String, required: true },
-  items: { type: Array, required: true },
-  total: { type: String, required: true }
+  details:  { type: Object, required: true },
+  items:    { type: Array,  required: false },
+  raw:      { type: String, required: true },
+  date:     { type: String, required: false },
+  email:    { type: String, required: false }
 });
 
 module.exports = mongoose.model('Order', Order);
