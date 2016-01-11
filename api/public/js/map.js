@@ -48,21 +48,23 @@
   }
 
   $(function(){
-    $.get('http://localhost:3000/api/v1/orders', function(response){
-      var fetching = 0;
-      response.data.map((order) => {
-        var address = order.customer.address.split('\n').join().split(' ').join(',');
-        address = address.replace('\s+',',')
-        $.get('http://maps.google.com/maps/api/geocode/json?address='+address+'&sensor=false', function(data){
-          console.log(data.results[0].geometry.location);
-          setTimeout(function(){
-            var marker = new google.maps.Marker({
-              position: data.results[0].geometry.location,
-              map: map
-            });
-          },1500)
+    setTimeout(function(){
+      $.get('http://localhost:3000/api/v1/orders', function(response){
+        var fetching = 0;
+        response.data.map((order) => {
+          var address = order.customer.address.split('\n').join().split(' ').join(',');
+          address = address.replace('\s+',',')
+          $.get('http://maps.google.com/maps/api/geocode/json?address='+address+'&sensor=false', function(data){
+            console.log(data.results[0].geometry.location);
+            setTimeout(function(){
+              var marker = new google.maps.Marker({
+                position: data.results[0].geometry.location,
+                map: map
+              });
+            },1500)
+          })
+          fetching++;
         })
-        fetching++;
       })
-    })
+    },1000)
   })
