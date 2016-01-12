@@ -26,12 +26,13 @@ var parser = new lazy;
 var parsed = 0;
 
 parser.forEach(function(email){
-  new Email(email).save((err) => {
-    if (err)
-      return error('Erroring saving ['+email.subject+'] to storage')
-    debug('Saved ['+email.subject+'] to storage')
-  })
-  parsed++
+  debug('Saved ['+email.subject+'] to storage')
+  // new Email(email).save((err) => {
+  //   if (err)
+  //     return error('Erroring saving ['+email.subject+'] to storage')
+  //   debug('Saved ['+email.subject+'] to storage')
+  // })
+  // parsed++
 })
 
 parser.on('pipe', function() {

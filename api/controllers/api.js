@@ -53,7 +53,7 @@ router.get('/emails', function(req, res, next) {
     if (err)
       throw err;
     res.send(emails);
-  }).limit(1000).select('file body -_id');
+  }).limit(500).select('file body raw -_id');
 });
 
 
