@@ -50,3 +50,22 @@ request({
   var $ = cheerio.load(body);
   parser.emit('data', $('table').text())
 });
+
+/*
+  var items = document.getElementsByClassName('item')
+  var count=0;
+  for (var i in items) {
+    if (count>112)
+      continue;
+    count++
+    var item = items[i];
+    openModal(item)
+  }
+
+  function openModal(item){
+    setTimeout(function(){
+      item.click()
+      console.log("opening " + item)
+    }, 150 + (i * 3500))
+  }
+*/
