@@ -12,7 +12,7 @@ var MailParser = require("mailparser").MailParser;
 
 var imap = new Imap({
   user: 'staff@rebellionpizza.com',
-  password: 'rebelStaff',
+  password: '--',
   host: 'imap.gmail.com',
   port: 993,
   tls: true
