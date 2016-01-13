@@ -6,8 +6,9 @@ const error     = require("debug")('errors:Email-Parser');
 const cheerio   = require("cheerio");
 const Lazy      = require('lazy');
 const Products  = require('../models/orderproducts');
+const Details  = require('../models/productdetails');
 
-const LIMIT = 20;
+const LIMIT = 10000;
 
 var Options  = new Lazy;
 var Extras = new Lazy;
@@ -20,8 +21,13 @@ Options.forEach((product) => {
     addOption(product.name, values)
   }
 }).on('pipe', () => {
-  debug('Finished processing all files')
-  console.log(require('util').inspect(products, { depth: null }));
+  products.map((name) => {
+    new Details(products[name]).save((err) => {
+      if (err)
+        return error(err)
+      debug(name + ' saved to storage')
+    })
+  })
 })
 
 Extras.forEach((product) => {
@@ -48,7 +54,8 @@ function addProduct(product){
   if (Object.keys(products).indexOf(product.name)==-1) {
     products.push(product.name);
     products[product.name] = {
-      options: {}
+      name: product.name
+    , options: {}
     }
   }
   Extras.emit('data', product)

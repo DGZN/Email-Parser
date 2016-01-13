@@ -6,7 +6,7 @@ var express = require('express'),
 var User = require('../models/user');
 var Order    = require('../models/order');
 var Details  = require('../models/orderdetails');
-var Product  = require('../models/orderproducts');
+var Product  = require('../models/productdetails');
 var Email    = require('../models/email');
 
 router.get('/users', function(req, res, next) {
@@ -23,7 +23,7 @@ router.get('/products', function(req, res, next) {
     if (err)
       throw err;
     res.send(products);
-  }).sort({price: -1}).select('-__v -_id');
+  }).sort({price: -1}).select('-__v -_id -options.Instructions');
 });
 
 router.get('/orders', function(req, res, next) {
