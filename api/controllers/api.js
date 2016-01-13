@@ -4,10 +4,10 @@ var express = require('express'),
          db = require('../db')
 
 var User = require('../models/user');
-var Product = require('../models/product');
-var Order   = require('../models/order');
-var Details = require('../models/orderdetails');
-var Email   = require('../models/email');
+var Order    = require('../models/order');
+var Details  = require('../models/orderdetails');
+var Product  = require('../models/orderproducts');
+var Email    = require('../models/email');
 
 router.get('/users', function(req, res, next) {
   User.find(function(err, users) {
@@ -22,19 +22,8 @@ router.get('/products', function(req, res, next) {
   Product.find(function(err, products) {
     if (err)
       throw err;
-    products.map((item) => {
-      if (distinct.indexOf(item.name)==-1)
-        if (item) {
-          distinct.push({
-            name:   item.name
-          , price:  item.price
-          , extras: item.extras
-          , data:   item.data
-          })
-        }
-    })
-    res.send(distinct);
-  });
+    res.send(products);
+  }).sort({price: -1}).select('-__v -_id');
 });
 
 router.get('/orders', function(req, res, next) {

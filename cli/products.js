@@ -1,23 +1,55 @@
-const db      = require('../db');
-const request = require("request");
-const info    = require("debug")('info:Email-Parser');
-const debug   = require("debug")('debug:Email-Parser');
-const error   = require("debug")('errors:Email-Parser');
-const cheerio = require("cheerio");
-const Lazy    = require('lazy');
-const Detail  = require('../models/orderdetails');
+const db            = require('../db');
+const request       = require("request");
+const info          = require("debug")('info:Email-Parser');
+const debug         = require("debug")('debug:Email-Parser');
+const error         = require("debug")('errors:Email-Parser');
+const cheerio       = require("cheerio");
+const Lazy          = require('lazy');
+const Detail        = require('../models/orderdetails');
+const OrderProducts = require('../models/orderproducts');
 
 const START = 0;
 const LIMIT = 10000;
 
-var parser   = new Lazy;
-var products = new Lazy;
+var parser   = new Lazy
+var products = new Lazy
+var storeProducts = new Lazy;
 var matched  = [];
 var parsed = 0;
+var saved = 0;
+var errors = 0;
 
 products.map((product) => {
-  debug(product.name)
+  if (Object.keys(matched).indexOf(product.name)==-1) {
+    matched.push(product.name)
+    matched[product.name] = product;
+  } else {
+    if (product.details.length)
+      matched[product.name].details.push(product.details)
+  }
+  parsed++
 })
+products.on('pipe', () => {
+  matched.map((product) => {
+    storeProducts.emit('data', product)
+  })
+  storeProducts.emit('end')
+});
+
+
+storeProducts.forEach(function(name){
+  new OrderProducts(matched[name]).save((err) => {
+    if (err)
+      return error('Unable to save product ['+name+'] to storage ' + err)
+    debug(name + '  saved to storage');
+  })
+})
+
+storeProducts.on('pipe', () => {
+  info('Saved ' + parsed + ' products to storage')
+})
+
+var unmatched = 0;
 
 parser.map((item) => {
   if (item.indexOf('discount')>=0)
@@ -45,15 +77,13 @@ parser.map((item) => {
     .split(',')
 })
 .filter(function (items){
-  if (!items) {
-    error('no match')
+  if (!items)
     return;
-  }
   items = items.filter((line) => {
     if (line.length>1)
       return line.replace(/^(\s)+/g,'').replace(/\d+x\s/,'');
   })
-  var price = items.pop().match(/\$\d*\.*\d*/g)[0];
+  var price = items.pop().match(/\$\d*\.*\d*/g)[0].replace(/([^\d.])/g,'');
   var product = {name: '', price: price, details: []}
   var i = 0;
   items.map((line) => {
@@ -65,20 +95,22 @@ parser.map((item) => {
         product.details.push(line)
       }
   })
-  if (matched.indexOf(product.name)==-1) {
-    matched.push(product.name)
-    products.emit('data', product)
-  }
+  products.emit('data', product)
 })
+
+parser.on('pipe', function() {
+  products.emit('end');
+});
 
 Detail.find(function(err, orders) {
   if (err)
     throw err;
   orders.map((item) => {
     item.order.items.map((product) => {
-      if(product.match(/(\$\d.\d*\s)$/gm))
+      if(product.match(/(\$\d*.\d*\s*)$/gm))
         return parser.emit('data', product)
-      error(product.match(/(\$)/))
+      error('@noPrice '+product)
     })
   })
+  parser.emit('end')
 }).limit(LIMIT).skip(START);
