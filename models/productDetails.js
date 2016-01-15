@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var ProductDetails = new Schema({
   name:    { type: String, required: true  },
+  price:   { type: Number, required: true  },
   options: { type: Object, required: true  }
 });
 

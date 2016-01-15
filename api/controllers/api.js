@@ -6,7 +6,7 @@ var express = require('express'),
 var User = require('../models/user');
 var Order    = require('../models/order');
 var Details  = require('../models/orderdetails');
-var Product  = require('../models/productdetails');
+var Product  = require('../models/productgrouped');
 var Email    = require('../models/email');
 
 router.get('/users', function(req, res, next) {

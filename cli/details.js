@@ -55,6 +55,7 @@ function addProduct(product){
     products.push(product.name);
     products[product.name] = {
       name: product.name
+    , price: product.price
     , options: {}
     }
   }

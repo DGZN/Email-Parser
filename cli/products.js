@@ -83,19 +83,26 @@ parser.map((item) => {
     if (line.length>1)
       return line.replace(/^(\s)+/g,'').replace(/\d+x\s/,'');
   })
-  var price = items.pop().match(/\$\d*\.*\d*/g)[0].replace(/([^\d.])/g,'');
-  var product = {name: '', price: price, details: []}
-  var i = 0;
-  items.map((line) => {
-    if (line.length>1 && line.indexOf('Instructions')==-1)
+  var price = items.pop();
+  var match = price.match(/\$\d*\.*\d*/g)
+  if (!match) {
+    error('@noPrice')
+    return error(items);
+  } else {
+    price = match[0].replace(/([^\d.])/g,'');
+    var product = {name: '', price: price, details: []}
+    var i = 0;
+    items.map((line) => {
+      if (line.length>1 && line.indexOf('Instructions')==-1)
       var line = line.replace(/^(\s)+/,'').replace(/\d+x\s/,'');
       if (i++==0) {
         product.name = line.trim(' ').replace('***','').replace(/(\d)$/,'')
       } else {
         product.details.push(line)
       }
-  })
-  products.emit('data', product)
+    })
+    products.emit('data', product)
+  }
 })
 
 parser.on('pipe', function() {
