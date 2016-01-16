@@ -14,7 +14,7 @@ const future   = require("debug")('orders:future-order');
 const ProdctParser = require('../lib/ProductParser');
 const HTMLParser   = require('../lib/HTMLParser');
 
-const LIMIT = 10000;
+const LIMIT = 6000;
 
 var emails  = new Lazy;
 var order   = new Lazy;

@@ -5,21 +5,21 @@ block content
   table(class="ui celled table")
     thead
       tr
-        th Last Order
         th Name
         th Phone
         th Address
+        th # Orders
       tbody
-      each order in orders
-        tr(data-order=order)
+      each customer in customers
+        tr(onclick="customerModal(this)" data-customer=customer)
           td
-            =order.date
+            =customer.name
           td
-            =order.customer.name
+            =customer.phone
           td
-            =order.customer.phone
+            =customer.address
           td
-            =order.customer.address
+            =customer.count
       tfoot
         tr
           th(colspan="6")
@@ -42,6 +42,4 @@ block content
                       div(class="ui header, order-content")
                   div(class="actions")
                     div(id="orderModalFooter")
-                    div(class="ui black labeled icon deny button") Cancel
-                    div(class="ui positive right labeled icon button") Confirm Order
-                    i(class="checkmark icon")
+                    div(class="ui positive right labeled icon button") Call

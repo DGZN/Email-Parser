@@ -7,29 +7,36 @@ const cheerio = require("cheerio");
 const Lazy    = require('lazy');
 const Detail  = require('../models/orderdetails');
 
-const LIMIT = 1;
+const LIMIT = 1000;
 
 var customers = [];
 
 Detail.find(function(err, orders) {
   if (err)
     throw err;
-  orders.map((item) => {
+  var customers = {};
+  var sumtotal  = 0;
+  orders.filter((item) => {
     if (item.customer.address!=='Pickup') {
       var address = item.customer.address.split('\n').join(' ')
+      var total = item.order.receipt[item.order.receipt.length-1].split('$')[1]
+      sumtotal+=parseInt(total.trim());
       var customer = {
         name:   item.customer.name
       , phone:  item.customer.phone
+      , total:  total
+      , count:  1
       , orders: [item.order]
       }
       if (Object.keys(customers).indexOf(address)>=0) {
-        customers[address].orders.push(order);
+        customers[address].orders.push(item.order)
+        customers[address].count++
       } else {
-        customers[address] = customer;
+        customers[address] = customer
       }
     }
   })
-}).limit(LIMIT);
-
-
-//
+  for (var i in customers) {
+    debug(customers[i].name + ' : ' + customers[i].phone)
+  }
+}).limit(1000);

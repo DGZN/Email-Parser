@@ -12,7 +12,7 @@ var MailParser = require("mailparser").MailParser;
 
 var imap = new Imap({
   user: 'staff@rebellionpizza.com',
-  password: '--',
+  password: 'rebelStaff',
   host: 'imap.gmail.com',
   port: 993,
   tls: true
@@ -27,12 +27,12 @@ var parsed = 0;
 
 parser.forEach(function(email){
   debug('Saved ['+email.subject+'] to storage')
-  // new Email(email).save((err) => {
-  //   if (err)
-  //     return error('Erroring saving ['+email.subject+'] to storage')
-  //   debug('Saved ['+email.subject+'] to storage')
-  // })
-  // parsed++
+  new Email(email).save((err) => {
+    if (err)
+      return error('Erroring saving ['+email.subject+'] to storage')
+    debug('Saved ['+email.subject+'] to storage')
+  })
+  parsed++
 })
 
 parser.on('pipe', function() {

@@ -8,7 +8,7 @@ const Lazy     = require('lazy');
 const Details  = require('../models/productdetails');
 const Grouped  = require('../models/productgrouped');
 
-const LIMIT = 10;
+const LIMIT = 100;
 
 var groups = [];
 var terms  = [];
@@ -39,7 +39,9 @@ Products.forEach((product) => {
       terms[term].items.map((term) => {
         var size = term[0].match(/(large)|(medium)|(small)|(")/gi)
         var qty  = term[0].match(/(\d)/gi)
+        debug(term[0])
         if (size) {
+          debug('Size: ' + term[0])
           if (Object.keys(options).indexOf('Sizes')==-1) {
             options['Sizes'] = [];
           }
@@ -64,7 +66,7 @@ Products.forEach((product) => {
       , price:   terms[term].price
       , options: terms[term].options
       }
-      debug(product)
+      //console.log(require('util').inspect(product.options, { depth: null }));
       // terms[term].self.update(product, (err) => {
       //   if (err)
       //     return error(err)
