@@ -1,5 +1,5 @@
 $(function(){
-  console.log("started");
+  
 })
 
 function orderModal(data){
@@ -34,7 +34,7 @@ function orderModal(data){
 }
 
 function customerModal(data){
-  var data = $(data).data('customer');
+  var data   = $(data).data('customer');
   var items = data.orders
   var list = '<ul style="line-height: 28px; font-size: 14px;">';
   for(i in items) {
@@ -63,7 +63,7 @@ function customerModal(data){
   ';
   // console.log(data.order.receipt[0].split(','));
   // console.log(data);
-  $('#orderModalHeader').html('# '+data.phone+'<span style="float:right;">'+data.name+'</span>')
+  $('#orderModalHeader').html('# '+data.phone+'<span class="call-order-status" id="call-order-status"></span><span style="float:right;">'+data.name+'</span>')
   $('#orderModalContent').html(orderModalContent)
   $('#orderModalFooter').html('<span style="float: left; font-size: 18px; margin: 7px; font-weight:bold">'+ data.address+'</span>')
   $('.ui.modal').modal('show')

@@ -7,8 +7,10 @@ html
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
     script(src="semantic/dist/semantic.min.js")
     script(src="/js/typeahead.jquery.js")
-    script(src="/js/orders.js")
+    script(src="/socket.io/socket.io.js")
+    script(src="/js/sockets.js")
     script(src="/js/search.js")
+    script(src="/js/orders.js")
   div(class="ui inverted menu")
     div(class="header item") The Rebellion
     a(class="item", href="/") Orders
@@ -33,3 +35,4 @@ html
             $132,353.00
   body
     block content
+    block scripts

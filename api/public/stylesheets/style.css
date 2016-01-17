@@ -28,6 +28,37 @@ tr {
   color: rgba(186,186,186,1);
 }
 
+.order-sidebar {
+  position: relative;
+  width: 95%;
+  margin: 0 15px 0 10px
+}
+
+.order-card-delivery-method {
+  position: relative;
+  float: right;
+  top: -4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #21BA45;
+}
+
+.sticky-sidebar-right {
+  position: absolute;
+  right: 0px;
+  height: 1200px;
+}
+
+.call-order-status {
+  position: relative;
+  width: 100%;
+  left: 25%;
+  font-size: 22px;
+  color: green;
+  font-weight: bold;
+  text-align: center;
+}
+
 .order-items {
   list-style: none !important;
 }

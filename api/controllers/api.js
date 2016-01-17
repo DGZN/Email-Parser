@@ -52,14 +52,16 @@ router.get('/customers', function(req, res, next) {
       throw err;
     var customers = {};
     var sumtotal  = 0;
-    orders.filter((item) => {
+    orders.filter(function(item){
       if (item.customer.address!=='Pickup') {
         var address = item.customer.address.split('\n').join(' ')
         var total = item.order.receipt[item.order.receipt.length-1].split('$')[1]
         sumtotal+=parseInt(total.trim());
+        item.order.date = item.date
         var customer = {
           name:   item.customer.name
         , phone:  item.customer.phone
+        , address:  item.customer.address
         , total:  total
         , count:  1
         , orders: [item.order]
