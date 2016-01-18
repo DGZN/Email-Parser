@@ -27,10 +27,10 @@ $(function(){
    }
    if (data.name == 'Recorded-Order') {
      $('#call-order-status').html('Order Recorded')
-     $('#audio-order').html('<audio controls>       \
-       <source src="'+data.order+'"> \
-       Your browser does not support the audio element. \
-     </audio>')
+    //  $('#audio-order').html('<audio controls>       \
+    //    <source src="'+data.order+'"> \
+    //    Your browser does not support the audio element. \
+    //  </audio>')
      $('#audio-order-card').html('<audio controls>       \
        <source src="'+data.order+'"> \
        Your browser does not support the audio element. \
