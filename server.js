@@ -14,10 +14,8 @@ var server = http.createServer(function (req, res) {
     body += chunk;
   });
   req.on('end', function(){
-    if (!callerID) {
-      console.log(require('util').inspect(qs.parse(body), { depth: null }));
-      callerID = true;
-    }
+    console.log(require('util').inspect(qs.parse(body), { depth: null }));
+    callerID = true;
     handleCall(req.url, res, qs.parse(body))
   });
 }).listen(8181, '0.0.0.0').on('request', (req) => {
@@ -50,6 +48,19 @@ function handleCall(url, res, data){
     , number: data['From'].replace(/\*/,'')
     , body: data
     });
+  }
+  if (data['RecordingUrl']) {
+    debug('New recorded order at: ' + data['RecordingUrl'])
+    io.emit('event', {
+      name: 'Recorded-Order'
+    , order: data['RecordingUrl']
+    });
+  }
+  if (url == '/recordOrder') {
+    io.emit('event', {
+      name: 'Recording-Order'
+    });
+    return res.end(RecordOrder());
   }
   if (url == '/order') {
     io.emit('event', {
@@ -108,16 +119,16 @@ function Greeting(caller){
   .say('Please hold to place your order')
   .pause(10)
   .gather({
-    action:'/order',
+    action:'/recordOrder',
     finishOnKey:'#'
   }, function() {
     this.say('Please choose from one of the following options')
     .pause(10)
-    .say('Press 1 to order from your recent history')
+    .say('Press 1 if you know what you would like to order.')
     .pause(10)
-    .say('Press 2 to hear a menu')
+    .say('Press 2 to order from your recent history')
     .pause(10)
-    .say('Press 3 to talk to a person', {
+    .say('Press 2 to talk to a person', {
       voice:'woman'
     , language: 'en-gb'
     })
@@ -152,20 +163,8 @@ function RecentOrders(){
     action:'/confirmation',
     finishOnKey:'#'
   }, function() {
-    this.say('Press 1 if you would like to order')
-    .say('1 Seasoned Curly Fries $2.29')
-    .pause(20)
-    .say('Press 2  if you would like to order')
-    .say('1 Macaroni Bites. Choice of Dipping Sauce: BBQ. $4.49')
-    .pause(20)
-    .say('Press 3  if you would like to order')
-    .say('1 Fire Calzone, (Small). Choice of Sauce: Hot. $10.49')
-    .pause(20)
-    .say('Press 4  if you would like to order')
-    .say('1 Chicken Caesar Salad, (Small). Choice of Dressing: Ranch. $5.99')
-    .pause(20)
-    .say('Press 5  if you would like to order')
-    .say('1 Fire Burger. Cook Style?: Medium Well. Make It: Toasted Sesame Seed Bun. Make it with: Regular. Choice of Sauce: Fire. $6.49')
+    this.say('Press 1 if you would like to order your last order, which includes')
+    .say('1 Seasoned Curly f r i e s, 1  Macaroni Bites, 1 Fire Calzone, (Small), 1 Chicken Caesar Salad and 1 Fire Burger for a total of $29.75')
     .pause(20)
     .say('Press 3 hear that again.', {
       voice:'woman'
@@ -236,4 +235,18 @@ function Checkout(){
   return twiml.toString();
 }
 
+
+function RecordOrder(){
+  var twiml = new twilio.TwimlResponse();
+  twiml.say('Please say what you would like to order, followed by the pound sign.')
+  .record({
+    action:'/billingInfo'
+  , timeout: 10
+  , finishOnKey: '#'
+  })
+  io.emit('event',  {
+    name: 'Recording-Order'
+  })
+  return twiml.toString();
+}
 console.log('TwiML servin\' server running at http://52.9.30.110:8181/');

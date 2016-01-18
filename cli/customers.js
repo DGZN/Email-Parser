@@ -6,8 +6,9 @@ const error   = require("debug")('errors:Email-Parser');
 const cheerio = require("cheerio");
 const Lazy    = require('lazy');
 const Detail  = require('../models/orderdetails');
+const Customer  = require('../models/customer');
 
-const LIMIT = 1000;
+const LIMIT = 10000;
 
 var customers = [];
 
@@ -16,15 +17,20 @@ Detail.find(function(err, orders) {
     throw err;
   var customers = {};
   var sumtotal  = 0;
-  orders.filter((item) => {
+  orders.filter(function(item){
     if (item.customer.address!=='Pickup') {
+      if (item.customer.name.indexOf('Instructions')>=0)
+        return
+      if (item.customer.name.indexOf('street')>=0)
+        return
       var address = item.customer.address.split('\n').join(' ')
       var total = item.order.receipt[item.order.receipt.length-1].split('$')[1]
       sumtotal+=parseInt(total.trim());
+      item.order.date = item.date
       var customer = {
-        name:   item.customer.name
-      , phone:  item.customer.phone
-      , total:  total
+        name:    item.customer.name.replace(/[^\w]/g,' ').replace(/\s{2,}/g,'')
+      , phone:   item.customer.phone.replace(/[^\d]/g,' ').replace(/\s/g,'')
+      , address: address
       , count:  1
       , orders: [item.order]
       }
@@ -37,6 +43,10 @@ Detail.find(function(err, orders) {
     }
   })
   for (var i in customers) {
-    debug(customers[i].name + ' : ' + customers[i].phone)
+    new Customer(customers[i]).save((err, doc) => {
+      if (err)
+        return error(err)
+      debug('['+doc.name+'] saved to storage.')
+    })
   }
-}).limit(1000);
+}).limit(LIMIT);

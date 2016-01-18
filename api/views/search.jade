@@ -2,7 +2,20 @@ extends layout
 
 
 block content
-  div(class="container-flud")
-    div(class="row search-results")
-      div(id="the-basics" class="col-md-9 col-md-offset-1 form-group")
-        input(class="typeahead form-control" type="text" placeholder="Customer Orders")
+  div(class="row search-results")
+    div(class="ui search twelve wide field")
+      input(type="text" class="prompt search-field" placeholder="Customer Name")
+  br
+  div(id="search-results" class="ui cards")
+  div(class="ui modal")
+    i(class="close icon")
+    div(class="header", id="orderModalHeader")
+
+    div(class="image content", id="orderModalContent")
+      div(class="ui medium image")
+      div(class="description")
+        div(class="ui header, order-content")
+    div(class="actions")
+      div(id="orderModalFooter")
+      div(class="ui positive right labeled icon button") Call
+      i(class="checkmark icon")

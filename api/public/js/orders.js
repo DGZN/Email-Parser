@@ -1,5 +1,5 @@
 $(function(){
-  
+
 })
 
 function orderModal(data){
@@ -57,13 +57,14 @@ function customerModal(data){
   var orderModalContent = '     \
   <div class="row">             \
     <div class="col-md-6">      \
+      <audio src="https://api.twilio.com/2010-04-01/Accounts/AC12eff6d0f3966ab33950779f36721e2e/Recordings/REd78596ab543ab533990c08f74e6cc905"></audio> \
       '+list+'                  \
     </div>                      \
   </div>                        \
   ';
   // console.log(data.order.receipt[0].split(','));
   // console.log(data);
-  $('#orderModalHeader').html('# '+data.phone+'<span class="call-order-status" id="call-order-status"></span><span style="float:right;">'+data.name+'</span>')
+  $('#orderModalHeader').html('# '+data.phone+'<audio src="https://api.twilio.com/2010-04-01/Accounts/AC12eff6d0f3966ab33950779f36721e2e/Recordings/REd78596ab543ab533990c08f74e6cc905"></audio><span class="call-order-status" id="call-order-status"></span><span style="float:right;">'+data.name+'</span>')
   $('#orderModalContent').html(orderModalContent)
   $('#orderModalFooter').html('<span style="float: left; font-size: 18px; margin: 7px; font-weight:bold">'+ data.address+'</span>')
   $('.ui.modal').modal('show')

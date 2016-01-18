@@ -22,6 +22,21 @@ $(function(){
    if (data.name == 'Recent-Orders') {
      $('#call-order-status').html('Choosing a Recent Order')
    }
+   if (data.name == 'Recording-Order') {
+     $('#call-order-status').html('Recording Order')
+   }
+   if (data.name == 'Recorded-Order') {
+     $('#call-order-status').html('Order Recorded')
+     $('#audio-order').html('<audio controls>       \
+       <source src="'+data.order+'"> \
+       Your browser does not support the audio element. \
+     </audio>')
+     $('#audio-order-card').html('<audio controls>       \
+       <source src="'+data.order+'"> \
+       Your browser does not support the audio element. \
+     </audio>')
+     console.log(data.order);
+   }
    if (data.name == 'Order-Confirmation') {
      $('#call-order-status').html('Order Confirmation')
    }
@@ -38,7 +53,7 @@ $(function(){
      $('#call-order-status').html('ORDER CONFIRMED')
      setTimeout(() => {
        $('.ui.modal').modal('hide')
-       $('#7202660754-order-card').fadeIn(5000)
+       $('#7202660754-order-card').fadeIn(3500)
      }, 1500)
    }
    console.log("Event: " + data.name);

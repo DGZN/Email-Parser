@@ -3,12 +3,12 @@ extends layout
 block content
   div(class="order-sidebar")
     div(class="ui cards")
-      div(class="card" id="7202660754-order-card" style="display: none;")
+      div(class="card order-card" id="7202660754-order-card" style="display: none;")
         div(class="content")
           div(class="header") Keiichi Lindley
             span(class="order-card-delivery-method") Delivery
           div(class="meta") 4731 South Bannock Street, Englewood Colorado 80110
-          div(class="description") 1 Fire Calzone, (Small). Choice of Sauce: Hot. $10.49
+          div(id="audio-order-card")
         div(class="extra content")
           div(class="ui two buttons")
             div(class="ui basic green button") Approve
@@ -46,7 +46,7 @@ block content
                 div(class="ui modal")
                   i(class="close icon")
                   div(class="header", id="orderModalHeader")
-
+                  div(id="audio-order")
                   div(class="image content", id="orderModalContent")
                     div(class="ui medium image")
                     div(class="description")

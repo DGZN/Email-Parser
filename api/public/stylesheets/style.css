@@ -28,6 +28,21 @@ tr {
   color: rgba(186,186,186,1);
 }
 
+.order-card {
+  width: 320px!important;
+}
+
+#audio-order-card {
+  position: relative;
+  top: 10px;
+}
+
+#audio-order {
+  position: absolute;
+  top: 68px;
+  right: 5px;
+}
+
 .order-sidebar {
   position: relative;
   width: 95%;
@@ -75,11 +90,33 @@ tr {
   margin: 15px 0 15px 0;
 }
 
-#the-basics {
+.search {
   position: relative;
-  display: block;
-  width: 80%;
-  left: 35%;
+  left: 30%;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#search-results {
+  margin-left: 50px;
+}
+.ui.search .prompt {
+  line-height: 2em !important;
+  font-weight: bold !important;
+  font-size: 1.1em !important;
+}
+
+
+.results {
+  display: none !important;
+}
+
+.card.result {
+  cursor: pointer;
+}
+
+.search-field {
+  width: 600px;
   font-size: 14px;
   font-weight: bold;
 }
